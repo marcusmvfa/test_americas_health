@@ -10,18 +10,24 @@ class UserRepositoryImpl implements UserRepository {
     _userCollection = FirebaseFirestore.instance.collection('users');
   }
   @override
-  Future addUser(UserModel user) async {
-    user.userId = _userCollection.doc().id;
-    await _userCollection.add(user.toMap());
+  Future createUser(UserModel user, String password) async {
+    try {
+      final result = await _auth.createUserWithEmailAndPassword(email: user.email!, password: password);
+      user.userId = result.user!.uid;
+      await _userCollection.doc(result.user!.uid).set(user.toMap());
+      return true;
+    } on Exception catch (e) {
+      return false;
+    }
   }
 
   @override
-  Future<UserModel> loginUser(String email, String password) async {
+  Future<UserModel?> loginUser(String email, String password) async {
     final result = await _auth.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
-    final user = await fetcUserInfo(result.user!.uid);
+    final user = result.user != null ? await fetcUserInfo(result.user!.uid) : null;
     return user;
   }
 
@@ -30,5 +36,16 @@ class UserRepositoryImpl implements UserRepository {
     final result = await _userCollection.doc(userId).get();
     final user = UserModel.fromMap(result.data() as Map<String, dynamic>);
     return user;
+  }
+
+  @override
+  Future<UserModel?> fetchCurrentUser() async {
+    final result = _auth.currentUser;
+    final user = result != null ? await fetcUserInfo(result.uid) : null;
+    return user;
+  }
+
+  Future logoutUser() async {
+    await _auth.signOut();
   }
 }
