@@ -24,7 +24,7 @@ class ContactController {
   final cityController = TextEditingController();
   final stateController = TextEditingController();
 
-  Future createContact() async {
+  Future saveContact() async {
     try {
       final user = await _userRepository.fetchCurrentUser();
       contactSelected.userId = user!.userId;
@@ -36,7 +36,12 @@ class ContactController {
         cidade: CityModel(nome: cityController.text),
         estado: StateModel(stateController.text),
       );
-      await _contactRepository.addContact(contactSelected);
+      if (contactSelected.contactId != null) {
+        await _contactRepository.editContact(contactSelected);
+      } else {
+        await _contactRepository.addContact(contactSelected);
+      }
+      await fetchContactList();
       return true;
     } on Exception catch (e) {
       return false;
@@ -47,6 +52,10 @@ class ContactController {
     final user = await _userRepository.fetchCurrentUser();
     final result = await _contactRepository.getContacts(user!.userId!);
     contacts.value = List.from(result);
+  }
+
+  Future deleteContact(String contactId) async {
+    await _contactRepository.deleteContact(contactId);
   }
 
   Future getContactCEP() async {
