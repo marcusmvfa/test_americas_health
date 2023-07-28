@@ -12,6 +12,7 @@ class SignUpView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.teal.shade400,
         title: const Text("Cadastro"),
       ),
       body: Padding(
@@ -23,9 +24,12 @@ class SignUpView extends StatelessWidget {
             children: [
               TextFormField(
                 controller: _controller.nameController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: "Nome completo",
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.teal.shade400),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -39,9 +43,12 @@ class SignUpView extends StatelessWidget {
               ),
               TextFormField(
                 controller: _controller.emailController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: "E-mail",
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.teal.shade400),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -55,9 +62,12 @@ class SignUpView extends StatelessWidget {
               ),
               TextFormField(
                 controller: _controller.phoneController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: "Telefone",
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.teal.shade400),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -71,9 +81,13 @@ class SignUpView extends StatelessWidget {
               ),
               TextFormField(
                 controller: _controller.passwordController,
-                decoration: const InputDecoration(
+                obscureText: true,
+                decoration: InputDecoration(
                   hintText: "Senha",
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.teal.shade400),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -89,9 +103,13 @@ class SignUpView extends StatelessWidget {
               ),
               TextFormField(
                   controller: _controller.confirmPasswordController,
-                  decoration: const InputDecoration(
+                  obscureText: true,
+                  decoration: InputDecoration(
                     hintText: "Confirmar senha",
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal.shade400),
+                    ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -105,6 +123,7 @@ class SignUpView extends StatelessWidget {
                 height: 32,
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(fixedSize: const Size(200, 45), backgroundColor: Colors.teal.shade400),
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     final result = await _controller.createUser() as bool;
