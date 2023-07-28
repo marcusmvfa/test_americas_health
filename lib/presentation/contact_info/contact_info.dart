@@ -36,6 +36,7 @@ class _ContactInfoState extends State<ContactInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.teal.shade400,
         title: const Text("Detalhes do contato"),
       ),
       body: Padding(
@@ -46,9 +47,12 @@ class _ContactInfoState extends State<ContactInfo> {
             children: [
               TextFormField(
                 controller: _controller.nameController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: "Nome completo",
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.teal.shade400),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -62,9 +66,12 @@ class _ContactInfoState extends State<ContactInfo> {
               ),
               TextFormField(
                 controller: _controller.phoneController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: "Telefone",
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.teal.shade400),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -78,14 +85,21 @@ class _ContactInfoState extends State<ContactInfo> {
               ),
               TextFormField(
                 controller: _controller.cepController,
+                onEditingComplete: () => _controller.getContactCEP(),
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
                       onPressed: () async {
                         await _controller.getContactCEP();
                       },
-                      icon: const Icon(Icons.download)),
+                      icon: Icon(
+                        Icons.download,
+                        color: Colors.teal.shade400,
+                      )),
                   hintText: "CEP",
                   border: const OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.teal.shade400),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -99,9 +113,12 @@ class _ContactInfoState extends State<ContactInfo> {
               ),
               TextFormField(
                 controller: _controller.streetController,
-                decoration: const InputDecoration(
-                  hintText: "Senha",
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  hintText: "Logradouro",
+                  border: const OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.teal.shade400),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -115,9 +132,12 @@ class _ContactInfoState extends State<ContactInfo> {
               ),
               TextFormField(
                   controller: _controller.cityController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: "Cidade",
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal.shade400),
+                    ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -130,9 +150,12 @@ class _ContactInfoState extends State<ContactInfo> {
               ),
               TextFormField(
                   controller: _controller.stateController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: "Estado",
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal.shade400),
+                    ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -141,12 +164,13 @@ class _ContactInfoState extends State<ContactInfo> {
                     return null;
                   }),
               const SizedBox(
-                height: 32,
+                height: 24,
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(fixedSize: const Size(double.maxFinite, 45), backgroundColor: Colors.teal.shade400),
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    final result = await _controller.createContact() as bool;
+                    final result = await _controller.saveContact() as bool;
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -163,7 +187,7 @@ class _ContactInfoState extends State<ContactInfo> {
                   }
                 },
                 child: const Text(
-                  "Entrar",
+                  "Salvar",
                   style: TextStyle(fontSize: 24),
                 ),
               ),

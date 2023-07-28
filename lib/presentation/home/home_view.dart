@@ -13,7 +13,8 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home"),
+        backgroundColor: Colors.teal.shade400,
+        title: const Text("Lista de Contatos"),
         actions: [
           IconButton(
             onPressed: () async {
@@ -26,17 +27,7 @@ class HomeView extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            TextFormField(
-              decoration: const InputDecoration(hintText: "Nome do contato"),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            ContactList(),
-          ],
-        ),
+        child: ContactList(),
       ),
       floatingActionButton: Card(
         shape: const CircleBorder(),

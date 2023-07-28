@@ -7,20 +7,30 @@ import 'package:test_americas_health/domain/controllers/contact_controller.dart'
 import 'package:test_americas_health/model/contact_model.dart';
 import 'package:test_americas_health/presentation/home/components/contact_list_item.dart';
 
-class ContactList extends StatelessWidget {
+class ContactList extends StatefulWidget {
   ContactList({super.key});
 
+  @override
+  State<ContactList> createState() => _ContactListState();
+}
+
+class _ContactListState extends State<ContactList> {
   final _controller = getIt<ContactController>();
+  @override
+  void initState() {
+    _controller.fetchContactList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: RefreshIndicator(
-        color: Colors.teal,
-        edgeOffset: 10,
-        onRefresh: () => _controller.fetchContactList(),
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
+    return RefreshIndicator(
+      color: Colors.teal,
+      edgeOffset: 10,
+      onRefresh: () => _controller.fetchContactList(),
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Center(
           child: Obx(
             () => _controller.contacts.isEmpty
                 ? Container(
