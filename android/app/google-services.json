@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "710218937483",
+    "project_id": "teste-americas-health",
+    "storage_bucket": "teste-americas-health.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:710218937483:android:9ae4a93ef3376a837fd08e",
+        "android_client_info": {
+          "package_name": "com.example.test_americas_health"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "710218937483-08kt47v96b7oa1dsjuahldcobj92t0tp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdheLSvd4B5ozggnK9ocbhQV0Z5G2l0MU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "710218937483-08kt47v96b7oa1dsjuahldcobj92t0tp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "710218937483-db14eu1khb46tjspnd4i5rttd1bo37e7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.marcus.teste-americas-health"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
