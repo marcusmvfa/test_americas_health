@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:test_americas_health/domain/controllers/login_controller.dart';
+import 'package:get/route_manager.dart';
+import 'package:test_americas_health/domain/controllers/user_controller.dart';
 import 'package:test_americas_health/dependency_injection.dart';
+import 'package:test_americas_health/presentation/home/home_view.dart';
+import 'package:test_americas_health/presentation/sign_up/sign_up_view.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({super.key});
-  final _controller = getIt<LoginController>();
+  final _controller = getIt<UserController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,8 +43,21 @@ class LoginView extends StatelessWidget {
               height: 32,
             ),
             ElevatedButton(
-              onPressed: () {
-                _controller.loginUser();
+              onPressed: () async {
+                final result = await _controller.loginUser();
+                if (result == true) {
+                  Get.offAll(() => HomeView());
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      backgroundColor: Colors.red,
+                      content: Text(
+                        "Confira seus dados e tente novamente",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  );
+                }
               },
               child: const Text(
                 "Entrar",
@@ -52,7 +68,9 @@ class LoginView extends StatelessWidget {
               height: 8,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Get.to(() => SignUpView());
+              },
               child: const Text(
                 "Não possui cadastro?\n Clique aqui para se cadastrar!",
                 textAlign: TextAlign.center,
